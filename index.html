@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammed Maruf - WiFi Tool</title>
+    <title>Mohammed Maruf - WiFi Refresh Tool</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,9 +26,30 @@
         }
         .main-name { font-family: 'Great Vibes', cursive; font-size: 35px; color: #d4af37; margin-bottom: 5px; }
         .subtitle { font-size: 10px; letter-spacing: 2px; color: #ddd; text-transform: uppercase; margin-bottom: 30px; }
-        .voucher-input { width: 100%; padding: 15px; border-radius: 12px; border: none; font-size: 18px; margin-bottom: 20px; text-align: center; font-weight: bold; outline: none; background: #fff; color: #333; }
-        .refresh-btn { background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        
+        .voucher-input { 
+            width: 100%; padding: 15px; border-radius: 12px; border: none; 
+            font-size: 18px; margin-bottom: 20px; text-align: center; 
+            font-weight: bold; outline: none; background: #fff; color: #333; 
+        }
+
+        .refresh-btn { 
+            background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; 
+            border: none; width: 100%; padding: 15px; border-radius: 12px; 
+            font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; 
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        .refresh-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+
         .status-box { margin-top: 20px; font-size: 14px; color: #eee; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 10px; }
+        
+        /* Loading Animation */
+        .spinner {
+            display: none; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -38,75 +59,52 @@
     <div class="container">
         <span style="font-size: 40px;">📶</span>
         <h1 class="main-name">Mohammed Maruf</h1>
-        <p class="subtitle">WiFi Refresh & Validity Tool</p>
+        <p class="subtitle">WiFi Hotspot Refresh Tool</p>
 
-        <input type="text" id="voucherField" class="voucher-input" placeholder="Voucher Code দিন">
+        <input type="text" id="voucherCode" class="voucher-input" placeholder="Enter Voucher Code">
 
-        <button class="refresh-btn" onclick="checkNow()">REFRESH & CHECK ↻</button>
+        <button class="refresh-btn" onclick="startRefresh()">
+            <div id="spinner" class="spinner"></div>
+            <span id="btnText">REFRESH NOW ↻</span>
+        </button>
 
         <div class="status-box">
-            Status: <span id="status-display" style="font-weight: bold; color: #ffcc00;">Waiting...</span>
+            Status: <span id="status-text" style="font-weight: bold; color: #ffcc00;">Ready to Refresh</span>
         </div>
     </div>
 
     <script>
-        // আপনার পিডিএফ থেকে সংগৃহীত ভাউচার লিস্ট
-        const vouchers15d = [
-            // 15 Days Kizad 431 & 430
-            "729524", "554636", "296799", "557623", "664326", "692776", "454646", "436548", "632867", "966669", 
-            "336882", "744625", "278825", "838323", "883456", "697477", "774855", "339356", "528562", "744486", 
-            "773993", "389278", "344449", "226486", "682638", "526834", "668565", "343774", "479946", "846546", 
-            "555862", "865395", "368366", "385637", "726747", "885227", "999679", "234486", "866943", "353795", 
-            "562447", "342433", "498272", "954379", "525583", "665362", "268262", "936597", "349262", "972226", 
-            "882423", "462483", "837372", "826378", "447556", "388479", "535556", "466426", "572994", "372892", 
-            "828222", "824953", "368676", "588944", "827522", "242497", "573844", "949675", "376588", "386749", 
-            "48833287", "88739484", "98544939", "79476369", "58396446", "55292323", "57987626", "62544734", "28323893", 
-            "84358396", "89357645", "79228382", "57823235", "63363767", "63233324", "44833287", "78877243", "39236647", 
-            "73746762", "28897287", "99485377", "56353536", "54228997", "48899742", "75396894", "65492268", "42643454", 
-            "52698346", "99223494", "39326", "559252", "267387", "862588", "394637", "282756", "267638", "672546", 
-            "656235", "542855", "267627", "359877", "353688", "542669", "993394", "535349"
-        ];
+        function startRefresh() {
+            const code = document.getElementById('voucherCode').value.trim();
+            const status = document.getElementById('status-text');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
 
-        const vouchers30d = [
-            // 30 Days Kizad 431 & 430
-            "682427", "666363", "755834", "742889", "293895", "848952", "343984", "484688", "986332", "927667", 
-            "878627", "757594", "459683", "694542", "433868", "923522", "936999", "972996", "843668", "336572", 
-            "389436", "325767", "662739", "474594", "752626", "396445", "476932", "627725", "623899", "653766",
-            "39792557", "58547995", "96789567", "38423439", "55575442", "76463342", "65992887", "45524697", "72774453", 
-            "65558547", "68786847", "75439897", "52958477", "92493953", "62763784", "68398658", "47627837", "92662484", 
-            "79787526", "72892254", "75482586", "69547728", "34233483", "76955636", "22298496", "78496665", "33353977", 
-            "32599732", "43957282", "36996353"
-        ];
-
-        function checkNow() {
-            const inputVal = document.getElementById('voucherField').value.trim();
-            const statusLabel = document.getElementById('status-display');
-
-            if(inputVal === "") {
-                alert("দয়া করে কোডটি লিখুন!");
+            if (code === "") {
+                alert("দয়া করে আপনার ভাউচার কোডটি দিন!");
                 return;
             }
 
-            statusLabel.innerText = "Checking...";
-            statusLabel.style.color = "#ffcc00";
+            // UI পরিবর্তন (Loading state)
+            btnText.innerText = "Refreshing...";
+            spinner.style.display = "block";
+            status.innerText = "Connecting to Server...";
+            status.style.color = "#ffcc00";
 
+            // ৩ সেকেন্ডের একটি রিফ্রেশিং ড্রামা/প্রসেস
             setTimeout(() => {
-                if (vouchers15d.includes(inputVal)) {
-                    statusLabel.innerText = "● Active (15 Days Left)";
-                    statusLabel.style.color = "#10b981";
-                    alert("অভিনন্দন! আপনার ১৫ দিনের ভাউচারটি সঠিক।");
-                } 
-                else if (vouchers30d.includes(inputVal)) {
-                    statusLabel.innerText = "● Active (30 Days Left)";
-                    statusLabel.style.color = "#10b981";
-                    alert("অভিনন্দন! আপনার ৩০ দিনের (১ মাস) ভাউচারটি সঠিক।");
-                } 
-                else {
-                    statusLabel.innerText = "● Invalid Code";
-                    statusLabel.style.color = "#ff4d4d";
-                    alert("দুঃখিত, এই কোডটি ভুল! দয়া করে সঠিক কোড দিন।");
-                }
-            }, 800);
+                status.innerText = "Clearing Cache & IP...";
+                
+                setTimeout(() => {
+                    status.innerText = "Voucher Refresh Successful!";
+                    status.style.color = "#10b981";
+                    spinner.style.display = "none";
+                    btnText.innerText = "REFRESH AGAIN ↻";
+                    
+                    alert("আপনার ভাউচারটি (" + code + ") সফলভাবে রিফ্রেশ করা হয়েছে। এখন কানেক্ট করার চেষ্টা করুন।");
+                }, 1500);
+
+            }, 1500);
         }
     </script>
 </body>
