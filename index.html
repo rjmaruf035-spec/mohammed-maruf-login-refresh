@@ -2,37 +2,55 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>WiFi Card Refresh</title>
+    <title>MOHAMMED MARUF - WiFi Refresh</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #f2f2f2; }
         .box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.1); max-width: 350px; margin: 0 auto; }
+        h2 { color: #333; font-size: 20px; margin-bottom: 5px; }
+        .dev-name { color: #28a745; font-weight: bold; font-size: 14px; margin-bottom: 20px; }
         input { width: 90%; padding: 15px; margin: 15px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; text-align: center; }
         button { padding: 15px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 8px; font-weight: bold; width: 100%; font-size: 16px; }
         #status { margin-top: 20px; font-weight: bold; }
+        footer { margin-top: 20px; font-size: 12px; color: #888; }
     </style>
 </head>
 <body>
+
     <div class="box">
         <h2>WIFI CARD REFRESH</h2>
-        <p style="color: #666;">ভাউচার কোডটি লিখুন</p>
+        <div class="dev-name">Developed by MOHAMMED MARUF</div>
+        
+        <p style="color: #666; font-size: 14px;">ভাউচার কোডটি লিখুন</p>
         <input type="text" id="voucher" placeholder="Enter Kode Voucher">
+        
         <button onclick="processRefresh()">CONNECT & REFRESH</button>
+        
         <p id="status"></p>
+        
+        <footer>©️ 2026 MOHAMMED MARUF. All Rights Reserved.</footer>
     </div>
+
     <script>
         function processRefresh() {
             let code = document.getElementById('voucher').value;
             let status = document.getElementById('status');
+
             if(code !== "") {
-                status.innerText = "Connecting... Please wait.";
+                status.innerText = "Processing... Maruf's tool is refreshing.";
                 status.style.color = "blue";
-                setTimeout(() => { location.reload(); }, 3000);
+                
+                setTimeout(() => {
+                    status.innerText = "Connection Refreshed!";
+                    status.style.color = "green";
+                    location.reload(); 
+                }, 3000);
             } else {
                 status.innerText = "দয়া করে ভাউচার কোডটি দিন!";
                 status.style.color = "red";
             }
         }
     </script>
+
 </body>
 </html>
