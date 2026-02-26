@@ -1,31 +1,53 @@
-/* Dashboard Specific Styles */
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    margin-top: 20px;
-}
-.card {
-    background: #2d3748;
-    border-radius: 15px;
-    padding: 20px;
-    width: 250px;
-    border: 1px solid #4a5568;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-.status-dot.online { color: #48bb78; font-weight: bold; }
-.status-dot.offline { color: #f56565; font-weight: bold; }
-.info { font-size: 14px; color: #a0aec0; margin: 5px 0; }
-.btn-check {
-    background: #ecc94b;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-}
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi Monitoring Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 style="color: #f6ad55; margin-top: 20px;">Mohammed Maruf</h1>
+        <p style="border-bottom: 2px solid #f6ad55; display: inline-block; padding-bottom: 5px;">WiFi Hotspot Monitoring System</p>
+        <br><br>
+        <a href="index.html" style="color: #a0aec0; text-decoration: none; font-size: 14px;">← Back to Refresh Tool</a>
+    </header>
 
+    <div class="container" id="user-list">
+        </div>
+
+    <script>
+        const users = [
+            { name: "Kizad Main Camp", ip: "192.168.1.1", status: "ONLINE", expiry: "2026-03-10" },
+            { name: "Industrial Zone 1", ip: "192.168.2.1", status: "ONLINE", expiry: "2026-03-05" },
+            { name: "Staff Camp A", ip: "192.168.3.1", status: "OFFLINE", expiry: "2026-02-20" },
+            { name: "Warehouse Depot", ip: "192.168.4.1", status: "ONLINE", expiry: "2026-03-15" }
+        ];
+
+        function displayUsers() {
+            const container = document.getElementById('user-list');
+            container.innerHTML = users.map(user => `
+                <div class="card">
+                    <h3>${user.name}</h3>
+                    <p class="status-dot ${user.status.toLowerCase()}">● ${user.status}</p>
+                    <p class="info">IP: ${user.ip}</p>
+                    <p class="info">মেয়াদ: ${user.expiry}</p>
+                    <button class="btn-check" onclick="checkValidity('${user.expiry}', '${user.name}')">Check Validity</button>
+                </div>
+            `).join('');
+        }
+
+        function checkValidity(expiryDate, name) {
+            const today = new Date();
+            const expiry = new Date(expiryDate);
+            if (expiry >= today) {
+                alert(name + "-এর মেয়াদ আছে। কানেকশন ঠিক আছে!");
+            } else {
+                alert("দুঃখিত, " + name + "-এর মেয়াদ শেষ হয়ে গেছে!");
+            }
+        }
+        displayUsers();
+    </script>
+</body>
+</html>
