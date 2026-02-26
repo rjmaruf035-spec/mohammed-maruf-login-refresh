@@ -4,31 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WiFi Hotspot Refresh Tool</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* সরাসরি এখানে ডিজাইন দিয়ে দিচ্ছি যাতে কোনো ভুল না হয় */
+        body {
+            background-color: #062b23; /* গাঢ় সবুজ ব্যাকগ্রাউন্ড */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .login-card {
+            background: #1e4d41;
+            padding: 40px 30px;
+            border-radius: 30px;
+            text-align: center;
+            width: 320px;
+            border: 2px solid #f56565; /* লাল বর্ডার */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .icon { font-size: 40px; margin-bottom: 10px; }
+        h1 { color: #f6ad55; font-size: 24px; margin: 0; }
+        p { color: #f6ad55; font-size: 12px; letter-spacing: 2px; margin-bottom: 30px; }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: none;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 16px;
+        }
+        .btn-refresh {
+            background-color: #2f855a;
+            color: white;
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .status { color: white; font-size: 14px; }
+        .status span { color: #f6ad55; font-weight: bold; }
+
+        /* ড্যাশবোর্ড বাটন */
+        .btn-dashboard {
+            display: block;
+            background-color: #f6ad55;
+            color: #1a202c;
+            margin-top: 25px;
+            padding: 12px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .btn-dashboard:hover { background-color: #ed8936; }
+    </style>
 </head>
 <body>
+
     <div class="login-card">
         <div class="icon">📊</div>
         <h1>Mohammed Maruf</h1>
         <p>WIFI HOTSPOT REFRESH TOOL</p>
         
-        <input type="text" placeholder="Enter Voucher Code" id="voucher">
-        <button class="btn-refresh" onclick="alert('Refreshed!')">REFRESH NOW ↻</button>
+        <input type="text" placeholder="Enter Voucher Code">
         
-        <div class="status">Status: <span id="stat-text" style="color: #ecc94b;">Ready to Refresh</span></div>
+        <button class="btn-refresh" onclick="alert('Refreshed Successfully!')">
+            REFRESH NOW ↻
+        </button>
+        
+        <div class="status">Status: <span>Ready to Refresh</span></div>
 
-        <hr style="margin: 20px 0; border: 0.5px solid #4a5568;">
-        <a href="dashboard.html" style="
-            background-color: #f6ad55; 
-            color: #1a202c; 
-            display: block; 
-            padding: 12px; 
-            text-decoration: none; 
-            border-radius: 8px; 
-            font-weight: bold;
-            text-align: center;">
+        <a href="dashboard.html" class="btn-dashboard">
             VIEW WIFI DASHBOARD →
         </a>
     </div>
+
 </body>
 </html>
