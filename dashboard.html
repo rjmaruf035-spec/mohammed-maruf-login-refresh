@@ -32,7 +32,6 @@
         .status-dot.online { color: #48bb78; }
         .status-dot.offline { color: #f56565; }
         
-        /* ভিডিও কল বাটন স্টাইল */
         .call-section {
             margin-top: 40px;
             padding: 20px;
@@ -66,17 +65,17 @@
         </div>
 
     <div class="call-section">
-        <h3>Need Technical Support?</h3>
-        <p style="color: #a0aec0; font-size: 14px; margin-bottom: 15px;">সরাসরি ভিডিও কলে কথা বলতে নিচের বাটনে ক্লিক করুন</p>
+        <h3>Technical Support</h3>
+        <p style="color: #a0aec0; font-size: 14px; margin-bottom: 15px;">ভিডিও কলে কথা বলতে নিচের বাটনে ক্লিক করুন</p>
         <button class="btn-video" onclick="startCall()">START VIDEO CALL 🎥</button>
     </div>
 
     <script>
-        // আপনার ওয়াইফাই ডাটা
         const users = [
             { name: "Kizad Main Camp", ip: "192.168.1.1", status: "ONLINE" },
             { name: "Industrial Zone 1", ip: "192.168.2.1", status: "ONLINE" },
-            { name: "Staff Camp A", ip: "192.168.3.1", status: "OFFLINE" }
+            { name: "Staff Camp A", ip: "192.168.3.1", status: "OFFLINE" },
+            { name: "Warehouse Depot", ip: "192.168.4.1", status: "ONLINE" }
         ];
 
         function displayUsers() {
@@ -90,11 +89,9 @@
             `).join('');
         }
 
-        // ভিডিও কল শুরু করার ফাংশন
         function startCall() {
-            // আপনার Agora Web Demo লিঙ্কটি এখানে কাজ করবে
-            const url = "https://webdemo.agora.io/basicVideoCall/index.html";
-            window.open(url, "_blank"); 
+            // আপনার ভিডিও কলের লিঙ্ক
+            window.location.href = "https://webdemo.agora.io/basicVideoCall/index.html"; 
         }
 
         displayUsers();
