@@ -7,86 +7,103 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, #004d40, #002b24); /* সেই ডিপ গ্রিন থিম */
-            font-family: 'Montserrat', sans-serif;
-            overflow: hidden;
-            position: relative;
+            height: 100vh; display: flex; justify-content: center; align-items: center;
+            background: radial-gradient(circle, #004d40, #002b24);
+            font-family: 'Montserrat', sans-serif; overflow: hidden; position: relative;
         }
-
-        /* ব্যাকগ্রাউন্ডে বাংলাদেশের মানচিত্র */
         .background-overlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            position: absolute; width: 100%; height: 100%;
             background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Map_of_Bangladesh.svg/800px-Map_of_Bangladesh.svg.png') no-repeat center;
-            background-size: contain;
-            opacity: 0.1;
-            z-index: 1;
+            background-size: contain; opacity: 0.1; z-index: 1;
         }
-
-        /* আপনার নাম ব্লারি ব্যাকগ্রাউন্ডে */
         .blurry-name-bg {
-            position: absolute;
-            font-family: 'Great Vibes', cursive;
-            font-size: 10vw;
-            color: rgba(212, 175, 55, 0.1);
-            filter: blur(12px);
-            z-index: 2;
-            white-space: nowrap;
-            user-select: none;
+            position: absolute; font-family: 'Great Vibes', cursive;
+            font-size: 10vw; color: rgba(212, 175, 55, 0.1);
+            filter: blur(12px); z-index: 2; white-space: nowrap;
         }
-
-        /* মেইন কার্ড ডিজাইন (গ্লাস-মরফিজম) */
         .container {
-            position: relative;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            padding: 45px 35px;
-            border-radius: 30px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-top: 8px solid #e63946; /* উপরের লাল বর্ডার */
+            position: relative; z-index: 10; background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px); padding: 40px 30px; border-radius: 30px;
+            width: 90%; max-width: 400px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
+            border-top: 8px solid #e63946;
         }
+        .main-name { font-family: 'Great Vibes', cursive; font-size: 35px; color: #d4af37; margin-bottom: 5px; }
+        .subtitle { font-size: 10px; letter-spacing: 2px; color: #ddd; text-transform: uppercase; margin-bottom: 30px; }
+        .voucher-input { width: 100%; padding: 15px; border-radius: 12px; border: none; font-size: 16px; margin-bottom: 20px; text-align: center; font-weight: bold; outline: none; background: #fff; color: #333; }
+        .refresh-btn { background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .refresh-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+        .footer-info { margin-top: 20px; font-size: 13px; color: #eee; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px; }
+    </style>
+</head>
+<body>
 
-        .main-name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 38px;
-            color: #d4af37; /* গোল্ডেন নাম */
-            margin-bottom: 5px;
+    <div class="background-overlay"></div>
+    <div class="blurry-name-bg">Mohammed Maruf</div>
+
+    <div class="container">
+        <span style="font-size: 40px;">📶</span>
+        <h1 class="main-name">Mohammed Maruf</h1>
+        <p class="subtitle">WiFi Refresh & Validity Tool</p>
+
+        <input type="text" id="voucherField" class="voucher-input" placeholder="Voucher Code দিন">
+
+        <button class="refresh-btn" onclick="checkNow()">REFRESH & CHECK ↻</button>
+
+        <div class="footer-info">
+            Status: <span id="status-display" style="font-weight: bold;">Waiting...</span>
+        </div>
+    </div>
+
+    <script>
+        // ভাউচার লিস্ট (এখানেই আপনি নতুন কোড যোগ করবেন)
+        const myVouchers = [
+            { code: "MARUF15", days: 15, buyDate: "2026-02-20" }, // ১৫ দিনের কার্ড (সচল থাকবে)
+            { code: "MARUF30", days: 30, buyDate: "2026-01-20" }, // ৩০ দিনের কার্ড (এক্সপায়ার হয়ে গেছে)
+            { code: "TEST", days: 7, buyDate: "2026-02-26" }     // আজকের কেনা ৭ দিনের কার্ড
+        ];
+
+        function checkNow() {
+            const inputVal = document.getElementById('voucherField').value.trim();
+            const statusLabel = document.getElementById('status-display');
+
+            if(inputVal === "") {
+                alert("দয়া করে কোডটি লিখুন!");
+                return;
+            }
+
+            statusLabel.innerText = "Checking...";
+            statusLabel.style.color = "#ffcc00";
+
+            setTimeout(() => {
+                // লিস্ট থেকে কোড খোঁজা
+                const found = myVouchers.find(v => v.code === inputVal);
+
+                if (found) {
+                    const today = new Date();
+                    const purchaseDate = new Date(found.buyDate);
+                    
+                    // দিন গণনা
+                    const timeDiff = today.getTime() - purchaseDate.getTime();
+                    const daysPassed = Math.floor(timeDiff / (1000 * 3600 * 24));
+
+                    if (daysPassed > found.days) {
+                        statusLabel.innerText = "● Expired (" + daysPassed + " days old)";
+                        statusLabel.style.color = "#ff4d4d";
+                        alert("দুঃখিত! এই কোডটি এক্সপায়ার হয়ে গেছে।");
+                    } else {
+                        statusLabel.innerText = "● Active (" + (found.days - daysPassed) + " days left)";
+                        statusLabel.style.color = "#10b981";
+                        alert("অভিনন্দন! আপনার ভাউচারটি সচল আছে।");
+                    }
+                } else {
+                    statusLabel.innerText = "● Invalid Code";
+                    statusLabel.style.color = "#ff4d4d";
+                    alert("ভুল ভাউচার কোড!");
+                }
+            }, 1500);
         }
-
-        .subtitle {
-            font-size: 11px;
-            letter-spacing: 2.5px;
-            color: #ddd;
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 35px;
-        }
-
-        /* ভাউচার ইনপুট বক্স */
-        .voucher-input {
-            width: 100%;
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.95);
-            border: none;
-            border-radius: 15px;
-            font-size: 16px;
-            margin-bottom: 25px;
-            outline: none;
-            text-align: center;
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* প্রফেশনাল রিফ্রেশ বাটন
+    </script>
+</body>
+</html>
