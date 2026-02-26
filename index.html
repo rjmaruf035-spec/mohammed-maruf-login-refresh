@@ -3,53 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maruf's WiFi Tool</title>
+    <title>Maruf's Premium WiFi Tool</title>
     <style>
-        :root { --bg: #e0e5ec; --box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5); }
-        body { background: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .container { background: var(--bg); padding: 40px; border-radius: 30px; box-shadow: var(--box-shadow); text-align: center; width: 320px; }
-        h2 { color: #444; font-size: 22px; margin-bottom: 10px; }
-        .dev-tag { background: #28a745; color: white; display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 12px; margin-bottom: 25px; }
-        input { width: 100%; padding: 15px; border: none; outline: none; background: var(--bg); border-radius: 10px; box-shadow: inset 6px 6px 12px #b8b9be, inset -6px -6px 12px #ffffff; box-sizing: border-box; margin-bottom: 20px; text-align: center; font-size: 16px; color: #333; }
-        button { width: 100%; padding: 15px; border: none; border-radius: 10px; background: #28a745; color: white; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 4px 4px 8px #b8b9be, -4px -4px 8px #ffffff; }
-        button:active { box-shadow: inset 4px 4px 8px #1e7e34, inset -4px -4px 8px #28a745; transform: scale(0.98); }
-        .loader { display: none; margin: 20px auto; border: 4px solid #f3f3f3; border-top: 4px solid #28a745; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #status { font-size: 14px; margin-top: 15px; font-weight: bold; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/random/900x1600/?nature,technology'); 
+            background-size: cover;
+            background-position: center;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .glass-box { 
+            background: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(15px); 
+            padding: 40px; 
+            border-radius: 25px; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center; 
+            width: 300px;
+            color: white;
+        }
+        h2 { margin-bottom: 5px; font-size: 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .dev { font-size: 14px; color: #00ff88; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 12px; 
+            background: rgba(255,255,255,0.9); 
+            margin-bottom: 20px; 
+            box-sizing: border-box;
+            font-size: 16px;
+            text-align: center;
+        }
+        button { 
+            width: 100%; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 12px; 
+            background: #28a745; 
+            color: white; 
+            font-weight: bold; 
+            font-size: 16px; 
+            cursor: pointer; 
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+        button:hover { background: #218838; transform: translateY(-2px); }
+        #status { margin-top: 20px; font-size: 14px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="glass-box">
     <h2>WIFI REFRESH</h2>
-    <div class="dev-tag">By MOHAMMED MARUF</div>
+    <div class="dev">MOHAMMED MARUF</div>
     
     <input type="text" id="voucher" placeholder="Enter Kode Voucher">
-    <button onclick="runTool()">REFRESH NOW</button>
+    <button onclick="startRef()">REFRESH CONNECTION</button>
     
-    <div class="loader" id="loader"></div>
     <div id="status"></div>
 </div>
 
 <script>
-    function runTool() {
-        let code = document.getElementById('voucher').value;
-        let loader = document.getElementById('loader');
-        let status = document.getElementById('status');
-
-        if(code !== "") {
-            loader.style.display = "block";
-            status.innerText = "Connecting to WiFi...";
-            status.style.color = "#555";
-            
-            setTimeout(() => {
-                status.innerText = "Maruf's System: Success!";
-                status.style.color = "green";
-                setTimeout(() => { location.reload(); }, 1500);
-            }, 3000);
+    function startRef() {
+        let v = document.getElementById('voucher').value;
+        let s = document.getElementById('status');
+        if(v !== "") {
+            s.innerText = "System Refreshing by Maruf...";
+            s.style.color = "#00ff88";
+            setTimeout(() => { location.reload(); }, 2500);
         } else {
-            status.innerText = "Please enter voucher code!";
-            status.style.color = "red";
+            s.innerText = "Please enter code!";
+            s.style.color = "#ff4d4d";
         }
     }
 </script>
