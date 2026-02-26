@@ -6,57 +6,140 @@
     <title>Mohammed Maruf - WiFi Refresh Tool</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #004d40; /* সেই গাঢ় সবুজ শেড */
-            --accent-gold: #d4af37; /* গোল্ডেন ক্যালিগ্রাফি কালার */
-            --white: #ffffff;
-            --btn-green: #2e7d32;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            padding: 0;
             font-family: 'Poppins', sans-serif;
-            background: var(--bg-dark);
-            /* বাংলাদেশের মানচিত্রের একটি ব্যাকগ্রাউন্ড ওভারলে */
-            background-image: linear-gradient(rgba(0, 77, 64, 0.9), rgba(0, 77, 64, 0.9)), 
-                              url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Map_of_Bangladesh.svg/800px-Map_of_Bangladesh.svg.png');
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: #002b24; /* গাঢ় সবুজ ব্যাকগ্রাউন্ড */
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            color: #333;
-        }
-
-        .refresh-card {
-            background: rgba(255, 255, 255, 0.95);
-            width: 350px;
-            padding: 30px;
-            border-radius: 25px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            border-top: 8px solid #d32f2f; /* উপরের লাল বর্ডার */
+            overflow: hidden;
             position: relative;
         }
 
-        /* ক্যালিগ্রাফি স্টাইল নাম */
-        .user-name {
+        /* বাংলাদেশের মানচিত্র ব্যাকগ্রাউন্ডে সেট করা */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Map_of_Bangladesh.svg/800px-Map_of_Bangladesh.svg.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.15; /* মানচিত্রটি হালকা দেখাবে */
+            z-index: -1;
+        }
+
+        /* কার্ডের মেইন ডিজাইন */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            width: 350px;
+            padding: 40px 30px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-top: 10px solid #e63946; /* লাল বর্ডার */
+        }
+
+        /* WiFi আইকন */
+        .wifi-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #004d40;
+        }
+
+        /* ক্যালিগ্রাফি স্টাইলে আপনার নাম */
+        .name {
             font-family: 'Great Vibes', cursive;
-            font-size: 2.2rem;
-            color: var(--accent-gold);
-            margin: 10px 0 0 0;
-            font-weight: bold;
+            font-size: 32px;
+            color: #b8860b; /* গোল্ডেন কালার */
+            margin-bottom: 5px;
         }
 
-        .tool-title {
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+        .subtitle {
+            font-size: 11px;
             text-transform: uppercase;
-            color: #555;
-            margin-bottom: 25px;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 600;
         }
 
-        .
+        /* ইনপুট ফিল্ড */
+        .input-box {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .input-box:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 10px rgba(46, 125, 50, 0.2);
+        }
+
+        /* রিফ্রেশ বাটন */
+        .refresh-btn {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: #1b5e20;
+            transform: translateY(-2px);
+        }
+
+        .refresh-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* স্ট্যাটাস সেকশন */
+        .status-info {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #ddd;
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* বাটন ক্লিক করলে এনিমেশন */
+        .rotating {
+            animation: rotate 1s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="wifi-icon">📶</div>
