@@ -12,24 +12,26 @@
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            /* বাংলাদেশের সুন্দর একটি ওয়ালপেপার */
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1622322062602-535316e68516?q=80&w=1000&auto=format&fit=crop'); 
+            /* বাংলাদেশের গ্রাম ও নৌকার একটি স্থায়ী লিঙ্ক */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/10323953/pexels-photo-10323953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); 
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             font-family: 'Segoe UI', sans-serif;
         }
         .glass-box { 
-            background: rgba(255, 255, 255, 0.2); 
-            backdrop-filter: blur(12px); 
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
             padding: 40px; 
             border-radius: 25px; 
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             text-align: center; 
             width: 300px;
             color: white;
         }
-        h2 { margin-bottom: 5px; font-size: 24px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        h2 { margin-bottom: 5px; font-size: 24px; text-shadow: 2px 2px 8px rgba(0,0,0,0.6); }
         .dev { font-size: 14px; color: #00ff88; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
         input { 
             width: 100%; 
@@ -48,16 +50,16 @@
             padding: 15px; 
             border: none; 
             border-radius: 12px; 
-            background: #e63946; /* লাল রং যা বাংলাদেশের পতাকার সাথে মানানসই */
+            background: #e63946; 
             color: white; 
             font-weight: bold; 
             font-size: 16px; 
             cursor: pointer; 
             transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.5);
         }
         button:hover { background: #c1121f; transform: translateY(-2px); }
-        #status { margin-top: 20px; font-size: 14px; font-weight: bold; }
+        #status { margin-top: 20px; font-size: 14px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
