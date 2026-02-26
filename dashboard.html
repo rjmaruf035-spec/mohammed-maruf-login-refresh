@@ -3,21 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi Monitoring Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <title>WiFi Hotspot Monitoring Dashboard</title>
+    <style>
+        /* সরাসরি ডিজাইন এখানে দেওয়া হলো যাতে কোনো ভুল না হয় */
+        body {
+            background-color: #1a202c; /* ডার্ক ব্যাকগ্রাউন্ড */
+            color: white;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: #f6ad55; /* সোনালী হলুদ রঙ */
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            color: white;
+            border-bottom: 2px solid #f6ad55;
+            display: inline-block;
+            padding-bottom: 5px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background: #2d3748;
+            border-radius: 20px;
+            padding: 20px;
+            width: 280px;
+            border: 1px solid #4a5568;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: white;
+            font-size: 18px;
+        }
+
+        .status-dot {
+            font-weight: bold;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .online { color: #48bb78; } /* সবুজ */
+        .offline { color: #f56565; } /* লাল */
+
+        .info {
+            font-size: 14px;
+            color: #a0aec0;
+            margin: 5px 0;
+        }
+
+        .btn-check {
+            background-color: #ecc94b;
+            color: #1a202c;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .btn-check:hover {
+            background-color: #d69e2e;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <h1 style="color: #f6ad55; margin-top: 20px;">Mohammed Maruf</h1>
-        <p style="border-bottom: 2px solid #f6ad55; display: inline-block; padding-bottom: 5px;">WiFi Hotspot Monitoring System</p>
-        <br><br>
-        <a href="index.html" style="color: #a0aec0; text-decoration: none; font-size: 14px;">← Back to Refresh Tool</a>
+        <h1>Mohammed Maruf</h1>
+        <p>WiFi Hotspot Monitoring System</p>
     </header>
 
     <div class="container" id="user-list">
         </div>
 
+    <a href="index.html" class="back-link">← Back to Refresh Tool</a>
+
     <script>
+        // এখানে আপনার রাউটারের ডাটা অনুযায়ী আইপি ও মেয়াদ পরিবর্তন করতে পারেন
         const users = [
             { name: "Kizad Main Camp", ip: "192.168.1.1", status: "ONLINE", expiry: "2026-03-10" },
             { name: "Industrial Zone 1", ip: "192.168.2.1", status: "ONLINE", expiry: "2026-03-05" },
@@ -42,12 +136,15 @@
             const today = new Date();
             const expiry = new Date(expiryDate);
             if (expiry >= today) {
-                alert(name + "-এর মেয়াদ আছে। কানেকশন ঠিক আছে!");
+                alert(name + "-এর মেয়াদ এখনো আছে। কানেকশন সক্রিয় আছে!");
             } else {
-                alert("দুঃখিত, " + name + "-এর মেয়াদ শেষ হয়ে গেছে!");
+                alert("সতর্কতা! " + name + "-এর মেয়াদ শেষ হয়ে গেছে। দয়া করে রিচার্জ করুন।");
             }
         }
+
+        // কার্ডগুলো লোড করার জন্য ফাংশনটি কল করা হলো
         displayUsers();
     </script>
+
 </body>
 </html>
