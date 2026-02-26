@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maruf's Premium WiFi Tool</title>
+    <title>Maruf's WiFi Tool - BD Edition</title>
     <style>
         body { 
             margin: 0; 
@@ -12,23 +12,24 @@
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/random/900x1600/?nature,technology'); 
+            /* বাংলাদেশের সুন্দর একটি ওয়ালপেপার */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1622322062602-535316e68516?q=80&w=1000&auto=format&fit=crop'); 
             background-size: cover;
             background-position: center;
             font-family: 'Segoe UI', sans-serif;
         }
         .glass-box { 
-            background: rgba(255, 255, 255, 0.15); 
-            backdrop-filter: blur(15px); 
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(12px); 
             padding: 40px; 
             border-radius: 25px; 
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             text-align: center; 
             width: 300px;
             color: white;
         }
-        h2 { margin-bottom: 5px; font-size: 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        h2 { margin-bottom: 5px; font-size: 24px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
         .dev { font-size: 14px; color: #00ff88; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
         input { 
             width: 100%; 
@@ -40,21 +41,22 @@
             box-sizing: border-box;
             font-size: 16px;
             text-align: center;
+            color: #333;
         }
         button { 
             width: 100%; 
             padding: 15px; 
             border: none; 
             border-radius: 12px; 
-            background: #28a745; 
+            background: #e63946; /* লাল রং যা বাংলাদেশের পতাকার সাথে মানানসই */
             color: white; 
             font-weight: bold; 
             font-size: 16px; 
             cursor: pointer; 
             transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
         }
-        button:hover { background: #218838; transform: translateY(-2px); }
+        button:hover { background: #c1121f; transform: translateY(-2px); }
         #status { margin-top: 20px; font-size: 14px; font-weight: bold; }
     </style>
 </head>
@@ -75,11 +77,11 @@
         let v = document.getElementById('voucher').value;
         let s = document.getElementById('status');
         if(v !== "") {
-            s.innerText = "System Refreshing by Maruf...";
+            s.innerText = "Refreshing... Please wait, Maruf.";
             s.style.color = "#00ff88";
             setTimeout(() => { location.reload(); }, 2500);
         } else {
-            s.innerText = "Please enter code!";
+            s.innerText = "ভাউচার কোডটি দিন!";
             s.style.color = "#ff4d4d";
         }
     }
