@@ -1,145 +1,53 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html>
 <head>
     <meta charset="UTF-8">
+    <title>WiFi Card Refresh</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammed Maruf - WiFi Refresh Tool</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #002b24; /* গাঢ় সবুজ ব্যাকগ্রাউন্ড */
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* বাংলাদেশের মানচিত্র ব্যাকগ্রাউন্ডে সেট করা */
-        body::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Map_of_Bangladesh.svg/800px-Map_of_Bangladesh.svg.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            opacity: 0.15; /* মানচিত্রটি হালকা দেখাবে */
-            z-index: -1;
-        }
-
-        /* কার্ডের মেইন ডিজাইন */
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            width: 350px;
-            padding: 40px 30px;
-            border-radius: 30px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border-top: 10px solid #e63946; /* লাল বর্ডার */
-        }
-
-        /* WiFi আইকন */
-        .wifi-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-            color: #004d40;
-        }
-
-        /* ক্যালিগ্রাফি স্টাইলে আপনার নাম */
-        .name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 32px;
-            color: #b8860b; /* গোল্ডেন কালার */
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #666;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        /* ইনপুট ফিল্ড */
-        .input-box {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 16px;
-            margin-bottom: 20px;
-            outline: none;
-            transition: 0.3s;
-            text-align: center;
-        }
-
-        .input-box:focus {
-            border-color: #2e7d32;
-            box-shadow: 0 0 10px rgba(46, 125, 50, 0.2);
-        }
-
-        /* রিফ্রেশ বাটন */
-        .refresh-btn {
-            background: #2e7d32;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
-        }
-
-        .refresh-btn:hover {
-            background: #1b5e20;
-            transform: translateY(-2px);
-        }
-
-        .refresh-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* স্ট্যাটাস সেকশন */
-        .status-info {
-            margin-top: 25px;
-            font-size: 12px;
-            color: #ddd;
-            position: absolute;
-            bottom: 20px;
-            text-align: center;
-            width: 100%;
-        }
-
-        /* বাটন ক্লিক করলে এনিমেশন */
-        .rotating {
-            animation: rotate 1s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #f2f2f2; }
+        .box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.1); max-width: 350px; margin: 0 auto; }
+        h2 { color: #333; font-size: 20px; }
+        input { width: 90%; padding: 15px; margin: 15px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; text-align: center; }
+        button { padding: 15px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 8px; font-weight: bold; width: 100%; font-size: 16px; }
+        button:hover { background: #218838; }
+        #status { margin-top: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <div class="wifi-icon">📶</div>
+    <div class="box">
+        <h2>WIFI CARD REFRESH</h2>
+        <p style="color: #666;">ভাউচার কোডটি নিচে লিখুন</p>
+        
+        <input type="text" id="voucher" placeholder="Enter Kode Voucher">
+        
+        <button onclick="processRefresh()">CONNECT & REFRESH</button>
+        
+        <p id="status"></p>
+    </div>
+
+    <script>
+        function processRefresh() {
+            let code = document.getElementById('voucher').value;
+            let status = document.getElementById('status');
+
+            if(code !== "") {
+                status.innerText = "Connecting... Please wait.";
+                status.style.color = "blue";
+                
+                // ৩ সেকেন্ড পর পেজটি রিফ্রেশ হবে যা আপনার কানেকশন পুনরায় সচল করতে সাহায্য করবে
+                setTimeout(() => {
+                    status.innerText = "Refreshing Connection...";
+                    status.style.color = "green";
+                    location.reload(); 
+                }, 3000);
+            } else {
+                status.innerText = "দয়া করে ভাউচার কোডটি দিন!";
+                status.style.color = "red";
+            }
+        }
+    </script>
+
+</body>
+</html>
