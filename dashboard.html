@@ -148,3 +148,18 @@
 
 </body>
 </html>
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="startVideoCall()" style="background-color: #f56565; color: white; padding: 15px; border-radius: 10px; border: none; font-weight: bold; width: 100%;">
+        START LIVE VIDEO CALL 🎥
+    </button>
+</div>
+
+<script>
+function startVideoCall() {
+    // এটি সরাসরি আপনার Agora Web Demo-তে নিয়ে যাবে সব তথ্যসহ
+    const appId = "fac5fe706c744c56a3379070faa26665"; // আপনার App ID
+    const channel = "test_call"; 
+    const url = `https://webdemo.agora.io/basicVideoCall/index.html`;
+    window.location.href = url;
+}
+</script>
