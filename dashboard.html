@@ -3,44 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi Hotspot Monitoring Dashboard</title>
+    <title>WiFi Dashboard & Video Support</title>
     <style>
-        /* সরাসরি ডিজাইন এখানে দেওয়া হলো যাতে কোনো ভুল না হয় */
         body {
-            background-color: #1a202c; /* ডার্ক ব্যাকগ্রাউন্ড */
+            background-color: #1a202c;
             color: white;
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             padding: 20px;
             text-align: center;
         }
-
-        header {
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            color: #f6ad55; /* সোনালী হলুদ রঙ */
-            margin: 0;
-            font-size: 28px;
-        }
-
-        header p {
-            color: white;
-            border-bottom: 2px solid #f6ad55;
-            display: inline-block;
-            padding-bottom: 5px;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-
+        header h1 { color: #f6ad55; margin: 0; }
         .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
+            margin-top: 30px;
         }
-
         .card {
             background: #2d3748;
             border-radius: 20px;
@@ -48,53 +28,30 @@
             width: 280px;
             border: 1px solid #4a5568;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: 0.3s;
         }
-
-        .card h3 {
-            margin-top: 0;
+        .status-dot.online { color: #48bb78; }
+        .status-dot.offline { color: #f56565; }
+        
+        /* ভিডিও কল বাটন স্টাইল */
+        .call-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: #2d3748;
+            border-radius: 20px;
+            border: 2px dashed #f6ad55;
+        }
+        .btn-video {
+            background-color: #f56565;
             color: white;
-            font-size: 18px;
-        }
-
-        .status-dot {
-            font-weight: bold;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-
-        .online { color: #48bb78; } /* সবুজ */
-        .offline { color: #f56565; } /* লাল */
-
-        .info {
-            font-size: 14px;
-            color: #a0aec0;
-            margin: 5px 0;
-        }
-
-        .btn-check {
-            background-color: #ecc94b;
-            color: #1a202c;
+            padding: 15px 30px;
+            border-radius: 12px;
             border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 10px;
             font-weight: bold;
+            font-size: 18px;
             cursor: pointer;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .btn-check:hover {
-            background-color: #d69e2e;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 30px;
-            color: #a0aec0;
+            box-shadow: 0 4px 15px rgba(245, 101, 101, 0.4);
             text-decoration: none;
-            font-size: 14px;
+            display: inline-block;
         }
     </style>
 </head>
@@ -102,21 +59,24 @@
 
     <header>
         <h1>Mohammed Maruf</h1>
-        <p>WiFi Hotspot Monitoring System</p>
+        <p style="border-bottom: 2px solid #f6ad55; display: inline-block;">WiFi Monitoring & Support</p>
     </header>
 
     <div class="container" id="user-list">
         </div>
 
-    <a href="index.html" class="back-link">← Back to Refresh Tool</a>
+    <div class="call-section">
+        <h3>Need Technical Support?</h3>
+        <p style="color: #a0aec0; font-size: 14px; margin-bottom: 15px;">সরাসরি ভিডিও কলে কথা বলতে নিচের বাটনে ক্লিক করুন</p>
+        <button class="btn-video" onclick="startCall()">START VIDEO CALL 🎥</button>
+    </div>
 
     <script>
-        // এখানে আপনার রাউটারের ডাটা অনুযায়ী আইপি ও মেয়াদ পরিবর্তন করতে পারেন
+        // আপনার ওয়াইফাই ডাটা
         const users = [
-            { name: "Kizad Main Camp", ip: "192.168.1.1", status: "ONLINE", expiry: "2026-03-10" },
-            { name: "Industrial Zone 1", ip: "192.168.2.1", status: "ONLINE", expiry: "2026-03-05" },
-            { name: "Staff Camp A", ip: "192.168.3.1", status: "OFFLINE", expiry: "2026-02-20" },
-            { name: "Warehouse Depot", ip: "192.168.4.1", status: "ONLINE", expiry: "2026-03-15" }
+            { name: "Kizad Main Camp", ip: "192.168.1.1", status: "ONLINE" },
+            { name: "Industrial Zone 1", ip: "192.168.2.1", status: "ONLINE" },
+            { name: "Staff Camp A", ip: "192.168.3.1", status: "OFFLINE" }
         ];
 
         function displayUsers() {
@@ -125,41 +85,19 @@
                 <div class="card">
                     <h3>${user.name}</h3>
                     <p class="status-dot ${user.status.toLowerCase()}">● ${user.status}</p>
-                    <p class="info">IP: ${user.ip}</p>
-                    <p class="info">মেয়াদ: ${user.expiry}</p>
-                    <button class="btn-check" onclick="checkValidity('${user.expiry}', '${user.name}')">Check Validity</button>
+                    <p style="color: #a0aec0;">IP: ${user.ip}</p>
                 </div>
             `).join('');
         }
 
-        function checkValidity(expiryDate, name) {
-            const today = new Date();
-            const expiry = new Date(expiryDate);
-            if (expiry >= today) {
-                alert(name + "-এর মেয়াদ এখনো আছে। কানেকশন সক্রিয় আছে!");
-            } else {
-                alert("সতর্কতা! " + name + "-এর মেয়াদ শেষ হয়ে গেছে। দয়া করে রিচার্জ করুন।");
-            }
+        // ভিডিও কল শুরু করার ফাংশন
+        function startCall() {
+            // আপনার Agora Web Demo লিঙ্কটি এখানে কাজ করবে
+            const url = "https://webdemo.agora.io/basicVideoCall/index.html";
+            window.open(url, "_blank"); 
         }
 
-        // কার্ডগুলো লোড করার জন্য ফাংশনটি কল করা হলো
         displayUsers();
     </script>
-
 </body>
 </html>
-<div style="text-align: center; margin-top: 20px;">
-    <button onclick="startVideoCall()" style="background-color: #f56565; color: white; padding: 15px; border-radius: 10px; border: none; font-weight: bold; width: 100%;">
-        START LIVE VIDEO CALL 🎥
-    </button>
-</div>
-
-<script>
-function startVideoCall() {
-    // এটি সরাসরি আপনার Agora Web Demo-তে নিয়ে যাবে সব তথ্যসহ
-    const appId = "fac5fe706c744c56a3379070faa26665"; // আপনার App ID
-    const channel = "test_call"; 
-    const url = `https://webdemo.agora.io/basicVideoCall/index.html`;
-    window.location.href = url;
-}
-</script>
