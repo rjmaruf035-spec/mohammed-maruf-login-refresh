@@ -3,98 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi Dashboard & Video Support</title>
+    <title>MarufConnect - Easy Video Call</title>
     <style>
-        body {
-            background-color: #1a202c;
-            color: white;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
+        body { background-color: #0f172a; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; }
+        .header { background: linear-gradient(90deg, #f6ad55, #ed8936); padding: 20px; border-radius: 15px; margin-bottom: 30px; }
+        .card { background: #1e293b; border-radius: 15px; padding: 15px; margin-bottom: 10px; border-left: 5px solid #48bb78; }
+        .btn-call { 
+            background-color: #f56565; color: white; padding: 18px 40px; 
+            border-radius: 50px; border: none; font-weight: bold; font-size: 20px; 
+            cursor: pointer; box-shadow: 0 4px 20px rgba(245, 101, 101, 0.4);
+            text-decoration: none; display: inline-block; margin-top: 30px;
         }
-        header h1 { color: #f6ad55; margin: 0; }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .card {
-            background: #2d3748;
-            border-radius: 20px;
-            padding: 20px;
-            width: 280px;
-            border: 1px solid #4a5568;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        .status-dot.online { color: #48bb78; }
-        .status-dot.offline { color: #f56565; }
-        
-        .call-section {
-            margin-top: 40px;
-            padding: 20px;
-            background: #2d3748;
-            border-radius: 20px;
-            border: 2px dashed #f6ad55;
-        }
-        .btn-video {
-            background-color: #f56565;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 12px;
-            border: none;
-            font-weight: bold;
-            font-size: 18px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(245, 101, 101, 0.4);
-            text-decoration: none;
-            display: inline-block;
-        }
+        .status { color: #48bb78; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Mohammed Maruf</h1>
-        <p style="border-bottom: 2px solid #f6ad55; display: inline-block;">WiFi Monitoring & Support</p>
-    </header>
+    <div class="header">
+        <h1>MarufConnect</h1>
+        <p>WiFi Support & Free Video Call</p>
+    </div>
 
-    <div class="container" id="user-list">
+    <div id="user-list">
+        <div class="card">
+            <h3>Main Camp Connection</h3>
+            <p class="status">● Online</p>
         </div>
+        <div class="card">
+            <h3>Staff Support Line</h3>
+            <p class="status">● Active</p>
+        </div>
+    </div>
 
-    <div class="call-section">
-        <h3>Technical Support</h3>
-        <p style="color: #a0aec0; font-size: 14px; margin-bottom: 15px;">ভিডিও কলে কথা বলতে নিচের বাটনে ক্লিক করুন</p>
-        <button class="btn-video" onclick="startCall()">START VIDEO CALL 🎥</button>
+    <div style="margin-top: 50px;">
+        <p>সরাসরি ভিডিও কলে কথা বলতে নিচের বাটনে ক্লিক করুন</p>
+        <a href="https://meet.jit.si/MarufConnectSupportRoom" class="btn-call">START VIDEO CALL 🎥</a>
     </div>
 
     <script>
-        const users = [
-            { name: "Kizad Main Camp", ip: "192.168.1.1", status: "ONLINE" },
-            { name: "Industrial Zone 1", ip: "192.168.2.1", status: "ONLINE" },
-            { name: "Staff Camp A", ip: "192.168.3.1", status: "OFFLINE" },
-            { name: "Warehouse Depot", ip: "192.168.4.1", status: "ONLINE" }
-        ];
-
-        function displayUsers() {
-            const container = document.getElementById('user-list');
-            container.innerHTML = users.map(user => `
-                <div class="card">
-                    <h3>${user.name}</h3>
-                    <p class="status-dot ${user.status.toLowerCase()}">● ${user.status}</p>
-                    <p style="color: #a0aec0;">IP: ${user.ip}</p>
-                </div>
-            `).join('');
-        }
-
-        function startCall() {
-            // আপনার ভিডিও কলের লিঙ্ক
-            window.location.href = "https://webdemo.agora.io/basicVideoCall/index.html"; 
-        }
-
-        displayUsers();
+        // এখানে আপনি পরে আরও ইউজার যোগ করতে পারবেন
     </script>
 </body>
 </html>
